@@ -1,0 +1,34 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F2F2F2; /* Color de fondo de la página */
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    background-color: #034C8C; /* Color del botón "Obtener Recomendación" */
+    color: #fff;
+    cursor: pointer;
+}
+
+#submit-survey {
+    background-color: #1FBFBF; /* Color del botón "Enviar Encuesta" */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+h1, form, #recommendations, #survey {
+    text-align: center; /* Centrar todo el contenido */
+    margin-top: 20px;
+}
+
+img {
+    display: block;
+    margin: 0 auto 20px; /* Centrar la imagen y agregar un margen inferior */
+    max-width: 100%; /* Ajustar el tamaño máximo de la imagen */
+    height: auto; /* Para mantener la proporción de la imagen */
+}

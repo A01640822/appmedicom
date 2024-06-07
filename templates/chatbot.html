@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot de Recomendaciones</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Chatbot de Recomendaciones</h1>
+    <form id="recommendation-form">
+        <input type="text" id="user_id" name="user_id" placeholder="Ingresa tu ID de usuario" required>
+        <input type="number" id="num_recommendations" name="num_recommendations" placeholder="Número de recomendaciones" required>
+        <button type="submit">Obtener Recomendaciones</button>
+    </form>
+    <div id="recommendations">
+        <!-- Aquí aparecerán las recomendaciones -->
+    </div>
+</body>
+</html>

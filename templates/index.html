@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEDIBOT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo"> <!-- Agregar la imagen del logo -->
+    <h1>Hola, soy MEDIBOT. ¿En qué te puedo ayudar hoy?</h1>
+    <form id="recommendation-form">
+        <input type="text" id="user_id" name="user_id" placeholder="Ingresa tu ID de usuario" required>
+        <input type="number" id="num_recommendations" name="num_recommendations" placeholder="Número de recomendaciones" required>
+        <button type="submit">Obtener Recomendaciones</button>
+    </form>
+    <div id="recommendations">
+        <!-- Aquí aparecerán las recomendaciones -->
+    </div>
+
+    <div id="survey" style="display: none;">
+        <h2>Encuesta</h2>
+        <label for="tipo_cliente">¿A qué tipo de cliente visitaste?</label>
+        <select id="tipo_cliente" name="tipo_cliente">
+            <option value="Farmacia">Farmacia</option>
+            <option value="Hospital">Hospital</option>
+            <option value="Distribuidor">Distribuidor</option>
+            <option value="Otro">Otro</option>
+        </select>
+        <br>
+        <label for="venta">¿Se realizó alguna venta gracias a nuestra recomendación?</label>
+        <select id="venta" name="venta">
+            <option value="Si">Sí</option>
+            <option value="No">No</option>
+        </select>
+        <br>
+        <button type="button" id="submit-survey">Enviar Encuesta</button>
+    </div>
+
+    <script>
+        document.getElementById("recommendation-form").onsubmit = function(event) {
+            event.preventDefault();
+            var userId = document.getElementById("user_id").value;
+            var numRecommendations = document.getElementById("num_recommendations").value;
+
+            fetch("/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: "user_id=" + userId + "&num_recommendations=" + numRecommendations
+            })
+            .then(response => response.json())
+            .then(data => {
+                var recommendationsDiv = document.getElementById("recommendations");
+                recommendationsDiv.innerHTML = "";
+                if (data.error) {
+                    recommendationsDiv.innerHTML = `<p>${data.error}</p>`;
+                } else {
+                    var recommendationsList = "<ul>";
+                    data.recommendations.forEach(function(item) {
+                        recommendationsList += `<li>${item}</li>`;
+                    });
+                    recommendationsList += "</ul>";
+                    recommendationsDiv.innerHTML = recommendationsList;
+                    document.getElementById("survey").style.display = "block"; // Mostrar la encuesta
+                }
+            });
+        };
+
+        document.getElementById("submit-survey").onclick = function() {
+            var tipoCliente = document.getElementById("tipo_cliente").value;
+            var venta = document.getElementById("venta").value;
+
+            // Aquí puedes enviar los datos de la encuesta al servidor si es necesario
+            // Puedes usar fetch() o cualquier otra técnica para enviar los datos
+            // Luego, puedes mostrar un mensaje de confirmación o hacer cualquier otra acción necesaria
+
+            // Ejemplo de cómo mostrar un mensaje de confirmación
+            alert("Gracias por usar MEDIBOT. ¡Que las recomendaciones se conviertan en ventas, hasta la próxima!");
+        };
+    </script>s
+</body>
+</html>
